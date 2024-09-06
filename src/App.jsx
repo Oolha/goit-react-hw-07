@@ -3,20 +3,20 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import "./App.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addContact,
-  deleteContact,
-  selectContacts,
-} from "./redux/contactsSlice";
+import { useDispatch } from "react-redux";
 
-import { changeFilter } from "./redux/filtersSlice";
+import { useEffect } from "react";
+import { fetchContacts, deleteContact, addContact } from "./redux/contactsOps";
 
 function App() {
   const dispatch = useDispatch();
 
-  const addContactForm = (contactObject) => {
-    dispatch(addContact(contactObject));
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const addContactForm = (contact) => {
+    dispatch(addContact(contact));
   };
 
   const DeleteContact = (contactId) => {

@@ -3,9 +3,9 @@ import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import css from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
-const phoneRegExp = /^[0-9]{3}-[0-9]{2}-[0-9]{2}$/;
+const phoneRegExp = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
 
 const ContactValidationSchema = Yup.object().shape({
   name: Yup.string()
@@ -13,7 +13,7 @@ const ContactValidationSchema = Yup.object().shape({
     .max(50, "Too long!")
     .required("Required"),
   number: Yup.string()
-    .matches(phoneRegExp, "Must be a valid phone number 'xxx-xx-xx'")
+    .matches(phoneRegExp, "Must be a valid phone number 'xxx-xxx-xxxx'")
     .required("Required"),
 });
 
@@ -27,7 +27,6 @@ const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     const contactObject = {
-      id: nanoid(),
       name: values.name,
       number: values.number,
     };
